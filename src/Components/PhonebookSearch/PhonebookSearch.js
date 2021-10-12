@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import * as actions from "../../redux/actions";
 import style from "./PhonebookSearch.module.css";
 
@@ -29,6 +30,11 @@ const PhonebookSearch = () => {
       </label>
     </div>
   );
+};
+
+PhonebookSearch.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func
 };
 
 export default PhonebookSearch;

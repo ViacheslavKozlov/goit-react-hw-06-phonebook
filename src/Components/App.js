@@ -1,6 +1,6 @@
 // import React from "react";
 import { useSelector } from "react-redux";
-
+import PropTypes from "prop-types";
 import PhonebookForm from "./PhonebookForm/PhonebookForm";
 import PhonebookHeadline from "./PhonebookHeadline/PhonebookHeadline";
 import PhonebookList from "./PhonebookList/PhonebookList";
@@ -34,3 +34,7 @@ export default function App() {
     </>
   );
 }
+
+App.propTypes = {
+  contacts: PropTypes.array
+};
