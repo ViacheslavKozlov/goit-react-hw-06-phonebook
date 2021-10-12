@@ -1,17 +1,26 @@
-import React from "react";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../redux/actions";
 import style from "./PhonebookList.module.css";
 
-const PhonebookList = ({ contacts, onDeleteContact }) => {
+export default function PhonebookList() {
+  const filter = useSelector(state => state.contacts.filter);
+  const contacts = useSelector(state => state.contacts.contacts);
+
+  const normalizedInput = filter.toLocaleLowerCase();
+  const filteredContacts = contacts.filter(contact => contact.name.toLocaleLowerCase().includes(normalizedInput));
+
+  const dispatch = useDispatch();
+  const deleteBtnHandler = contact => dispatch(actions.delContact(contact));
+
   return (
     <>
       <ul className={style.listWrapper}>
-        {contacts.map(contact => (
+        {filteredContacts.map(contact => (
           <li className={style.listItem} key={contact.id}>
             <span className={style.listItemdData}>
               {contact.name}: <a href="tel:+{contact.number}">{contact.number}</a>
             </span>
-            <button className={style.listItemBtn} type="button" onClick={() => onDeleteContact(contact.id)}>
+            <button className={style.listItemBtn} type="button" onClick={() => deleteBtnHandler(contact)}>
               delete
             </button>
           </li>
@@ -19,16 +28,15 @@ const PhonebookList = ({ contacts, onDeleteContact }) => {
       </ul>
     </>
   );
-};
+}
 
-PhonebookList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired
-    })
-  ),
-  onDeleteContact: PropTypes.func.isRequired
-};
-export default PhonebookList;
+// PhonebookList.propTypes = {
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired
+//     })
+//   ),
+//   onDeleteContact: PropTypes.func.isRequired
+// };

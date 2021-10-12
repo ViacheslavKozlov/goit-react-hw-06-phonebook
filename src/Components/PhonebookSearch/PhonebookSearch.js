@@ -1,8 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../redux/actions";
 import style from "./PhonebookSearch.module.css";
 
-const PhonebookSearch = ({ value, onChange }) => {
+const PhonebookSearch = () => {
+  const value = useSelector(state => state.contacts.filter);
+  const dispatch = useDispatch();
+
+  const onChange = evt => {
+    dispatch(actions.changeFilter(evt.currentTarget.value));
+  };
+
   return (
     <div className={style.formWarpper}>
       <label className={style.searchLabel}>
@@ -21,15 +29,6 @@ const PhonebookSearch = ({ value, onChange }) => {
       </label>
     </div>
   );
-};
-
-PhonebookSearch.defaultPops = {
-  value: ""
-};
-
-PhonebookSearch.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired
 };
 
 export default PhonebookSearch;

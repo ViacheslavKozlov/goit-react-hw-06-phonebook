@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import * as actions from "../../redux/actions";
 import style from "./PhonebookForm.module.css";
-import PropTypes from "prop-types";
 
-export default function PhonebookForm({ onSubmit }) {
-  // eslint-disable-next-line no-unused-vars
-  const [id, setId] = useState("");
+export default function PhonebookForm() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const dispatch = useDispatch();
+  const onSubmit = contact => dispatch(actions.addContact(contact));
 
   const handleChange = evt => {
     const { name, value } = evt.target;
@@ -23,14 +24,13 @@ export default function PhonebookForm({ onSubmit }) {
   };
 
   const resetForm = () => {
-    setId("");
     setName("");
     setNumber("");
   };
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    onSubmit(name, number);
+    onSubmit({ name, number });
     resetForm();
   };
 
@@ -74,13 +74,3 @@ export default function PhonebookForm({ onSubmit }) {
     </form>
   );
 }
-
-PhonebookForm.defaultPops = {
-  id: "",
-  name: "",
-  number: ""
-};
-
-PhonebookForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired
-};
