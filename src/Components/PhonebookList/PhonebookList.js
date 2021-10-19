@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import * as actions from "../../redux/actions";
+import * as actions from "../../redux/phoneBook/actions";
 import style from "./PhonebookList.module.css";
 
 export default function PhonebookList() {
@@ -30,14 +29,3 @@ export default function PhonebookList() {
     </>
   );
 }
-
-PhonebookList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired
-    })
-  ),
-  deleteBtnHandler: PropTypes.func
-};

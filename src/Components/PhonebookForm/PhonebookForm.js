@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import * as actions from "../../redux/actions";
+import * as actions from "../../redux/phoneBook/actions";
 import style from "./PhonebookForm.module.css";
 
 export default function PhonebookForm() {
@@ -75,10 +74,3 @@ export default function PhonebookForm() {
     </form>
   );
 }
-
-PhonebookForm.propTypes = {
-  name: PropTypes.string,
-  number: PropTypes.number,
-  handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func
-};
